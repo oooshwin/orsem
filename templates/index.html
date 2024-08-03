@@ -11,9 +11,12 @@
                     <form method="POST" hx-post="/website/check_student" hx-target="#student_result">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input type="number" id="id_number" name="id_number" class="form-control" placeholder="Enter ID Number here..." required>
+                            <input type="number" id="id_number" name="id_number" class="form-control" placeholder="Enter ID Number " required>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <div class="main-btn-container">
+
+                        <button type="submit" class="main-btn">Check in Student Database</button>				</div>
+
                     </form>
                 </div>
             </div>

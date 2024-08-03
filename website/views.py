@@ -25,7 +25,9 @@ def check_student(request):
      if Student.objects.filter(id_number=id_number):
           student = Student.objects.get(id_number=id_number)
           return render(request, 'partials/student_info.html', {'student': student}  )
-     return HttpResponse(f'<div class="card-body"> <h5 class="card-title">Student #{id_number} is not found in the database</h5> </div>')
+     else:
+          return render(request, 'partials/student_info.html', {'id_number': id_number, 'method':'POST'}  )
+     # return HttpResponse(f'<div class="card-body"> <h5 class="card-title">Student #{id_number} is not found in the database</h5> </div>')
      
           
 def edit_attendance(request):
