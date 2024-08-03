@@ -1,7 +1,7 @@
 {% if student %}
-<div class="card mt-4">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Student Information</h5>
+<div class="card mt-4" >
+    <div >
+        <h5 >Student Information</h5>
     </div>
     <div class="card-body" >
         <p class="card-text"><strong>ID Number:</strong> {{ student.id_number }}</p>
@@ -9,7 +9,8 @@
         <p class="card-text"><strong>Committee:</strong> {{ student.committee }}</p>
         <p class="card-text"><strong>Position:</strong> {{ student.position }}</p>
         <p class="card-text">
-            <strong>Attendance:</strong> {{ student.attendance }}
+            <strong>Attendance:</strong> 
+                {% if not student.attendance  %} Has not attended {% else %} Has attended {% endif %}
             <form method="POST" hx-post="edit_attendance" hx-target="#student_result" class="d-inline float-right">
                 {% csrf_token %}
                 <input name="attendance" hidden type="number" value="{{ student.id_number }}">
@@ -22,4 +23,6 @@
         </p>
     </div>
 </div>
+
+
 {% endif %}

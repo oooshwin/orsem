@@ -32,10 +32,9 @@ def edit_attendance(request):
      def get_absolute_url(self):
         return reverse('website:edit_attendance')
      id_number = request.POST.get('attendance')
-     print(f"VALUE: {request.POST.get('attendance')}")
-     print('')
+     
      student = Student.objects.get(id_number=id_number)
-     print('student')
+     
      if not student.attendance:
           student.attendance = True
           student.save()
