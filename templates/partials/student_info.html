@@ -11,7 +11,7 @@
         <p class="card-text">
             <strong>Attendance:</strong> 
                 {% if not student.attendance  %} Has not attended {% else %} Has attended {% endif %}
-            <form method="POST" hx-post="edit_attendance" hx-target="#student_result" class="d-inline float-right">
+            <form method="POST" hx-post="edit_attendance" hx-target="#student_result" class="d-inline float-right" hx-confirm="Confirm">
                 {% csrf_token %}
                 <input name="attendance" hidden type="number" value="{{ student.id_number }}">
                 {% if not student.attendance %}

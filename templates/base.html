@@ -23,18 +23,7 @@
 </head>
 <body>
     {% include 'partials/navbar.html' %}
-    <nav id="sidebar"  class="nav-container">
-
-        <ul class="right-side">
-            {% comment %} <li><img src="favicon.png"></li> {% endcomment %}
-            <li><p>OrSem 2024 Registration</p></li>
-        </ul>
-        <ul class="left-side">
-            <li><p id="emailAddress"></p></li>
-            <li><button id="specReg" class="main-btn">Special Registration</button></li>
-            <li><button id="logoutButton" class="main-btn">Logout</button></li>
-        </ul>
-    </nav>
+    
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
