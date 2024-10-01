@@ -2,16 +2,13 @@
 {% load static %}
 {% block content %}
     <div class="main-content">
-        {% if user.is_authenticated %}
             <div class="card" style="margin-top: 100px;">
-                <div>
-                    <img style="margin-bottom: 100px;" src="{% static '/Mithi_Wordmark.png' %}" alt="">
-                </div>
+                
                 <div class="col-md-6">
                     <form method="POST" hx-post="/website/check_student" hx-target="#student_result">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input type="number" id="id_number" name="id_number" class="form-control" placeholder="Enter ID Number " required>
+                            <input type="number" id="id_number" name="id_number" class="form-control" placeholder="Enter ID: 226508 " required>
                         </div>
                         <div class="main-btn-container">
 
@@ -23,11 +20,5 @@
 
             <div class="mt-4" id="student_result">
                 {% include 'partials/student_info.html' %}
-            </div>
-        {% else %}
-            <div class="text-center">
-                <h1 class="display-4">Log-in first</h1>
-            </div>
-        {% endif %}
-    </div>
+            </div>    </div>
 {% endblock content %}
