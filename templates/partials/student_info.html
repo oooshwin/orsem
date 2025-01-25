@@ -1,37 +1,61 @@
 {% if student %}
-<div class="card mt-4" >
-    <div >
-        <h5 >Student Information</h5>
+<div class="card shadow mt-4 border-{% if student.attendance %}success{% else %}warning{% endif %}">
+    <div class="card-header bg-{% if student.attendance %}success{% else %}warning{% endif %} text-white">
+        <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Student Profile</h5>
     </div>
-    <div class="card-body" style="padding-bottom: 10px;" >
-        <p class="card-text"><strong>ID Number:</strong> {{ student.id_number }}</p>
-        <p class="card-text"><strong>Full Name:</strong> {{ student.full_name }}</p>
-        <p class="card-text"><strong>Committee:</strong> {{ student.committee }}</p>
-        <p class="card-text"><strong>Position:</strong> {{ student.position }}</p>
-        <p class="card-text">
-            <strong>Attendance:</strong> 
-                {% if not student.attendance  %} Has not attended {% else %} Has attended {% endif %}
-            <form method="POST" hx-post="edit_attendance" hx-target="#student_result" class="d-inline float-right" hx-confirm="Confirm">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="card-text">
+                    <strong><i class="bi bi-123 me-2"></i>ID:</strong>
+                    <span class="text-muted">{{ student.id_number }}</span>
+                </p>
+                <p class="card-text">
+                    <strong><i class="bi bi-person me-2"></i>Name:</strong>
+                    <span class="text-primary">{{ student.full_name }}</span>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p class="card-text">
+                    <strong><i class="bi bi-building me-2"></i>Committee:</strong>
+                    {{ student.committee }}
+                </p>
+                <p class="card-text">
+                    <strong><i class="bi bi-briefcase me-2"></i>Position:</strong>
+                    {{ student.position }}
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Attendance Status:</strong>
+                <span class="badge bg-{% if student.attendance %}success{% else %}danger{% endif %}">
+                    {% if student.attendance %}Present{% else %}Absent{% endif %}
+                </span>
+            </div>
+            <form method="POST" hx-post="edit_attendance" hx-target="#student_result" 
+                  class="d-inline" hx-confirm="Are you sure you want to change attendance status?">
                 {% csrf_token %}
                 <input name="attendance" hidden type="number" value="{{ student.id_number }}">
-                {% if not student.attendance %}
-                    <button type="submit" class="badge badge-success badge-pill" style="cursor: pointer;" hx-confirm="Confirm">Mark Attendance</button>
-                {% else %}
-                    <button type="submit" class="badge badge-danger badge-pill" style="cursor: pointer;" hx-confirm="Confirm">Unmark Attendance</button>
-                {% endif %}
+                <button type="submit" class="btn btn-{% if not student.attendance %}success{% else %}danger{% endif %} btn-sm">
+                    {% if not student.attendance %}
+                        <i class="bi bi-check-circle me-2"></i>Mark Present
+                    {% else %}
+                        <i class="bi bi-x-circle me-2"></i>Mark Absent
+                    {% endif %}
+                </button>
             </form>
-        </p>
+        </div>
     </div>
 </div>
-
 {% endif %}
 
 {% if method == 'POST' %}
-<div class="card mt-4" >
-    <div >
-        <h5 >Student #{{id_number}} is not found in the Database.</h5>
-    </div>
-    
+<div class="alert alert-danger mt-4 shadow" role="alert">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-octagon me-2"></i>Not Found</h4>
+    <p>Student #{{id_number}} was not found in the database.</p>
+    <hr>
+    <p class="mb-0">Please check the ID number and try again.</p>
 </div>
-
 {% endif %}

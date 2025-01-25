@@ -1,12 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
-<form method ='POST'>
-     {% csrf_token %}
-     {{ form }}
-     <button type="submit">Submit</button>
-
-</form>
-{% endblock content %}
+<div class="card shadow mx-auto" style="max-width: 500px;">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Registration Form</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                {% for field in form %}
+                <label class="form-label">{{ field.label_tag }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ field.label }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-send-check me-2"></i>
+                    Submit Registration
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

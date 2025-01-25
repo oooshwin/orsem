@@ -2,23 +2,34 @@
 {% load static %}
 {% block content %}
     <div class="main-content">
-            <div class="card" style="margin-top: 100px;">
-                
-                <div class="col-md-6">
-                    <form method="POST" hx-post="/website/check_student" hx-target="#student_result">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input type="number" id="id_number" name="id_number" class="form-control" placeholder="Enter ID: 226508 " required>
-                        </div>
-                        <div class="main-btn-container">
-
-                        <button type="submit" class="main-btn">Check in Student Database</button>				</div>
-
-                    </form>
-                </div>
+        <div class="card shadow-lg mx-auto" style="max-width: 600px; margin-top: 2rem;">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Student Lookup</h3>
             </div>
+            <div class="card-body">
+                <form method="POST" hx-post="/website/check_student" hx-target="#student_result" hx-indicator="#spinner">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_number" class="font-weight-bold">Student ID Number</label>
+                        <input type="number" id="id_number" name="id_number" 
+                               class="form-control form-control-lg border-primary" 
+                               placeholder="e.g. 226508"
+                               required>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <span class="htmx-indicator" id="spinner">
+                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                            </span>
+                            Search Database
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-            <div class="mt-4" id="student_result">
-                {% include 'partials/student_info.html' %}
-            </div>    </div>
+        <div class="mt-5" id="student_result">
+            {% include 'partials/student_info.html' %}
+        </div>
+    </div>
 {% endblock content %}
