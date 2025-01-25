@@ -1,1 +1,1 @@
-Orsem Registration System using Django-HTMX
+Event Registration System using Django-HTMX
